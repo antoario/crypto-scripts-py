@@ -3,20 +3,19 @@
 from Crypto.Cipher import AES
 from Crypto.Util import Padding
 
-key_hex = '00112233445566778899AABBCCDDEEFF'  
-key_bytes = bytes.fromhex(key_hex)
+key = b'16_r4ndom_bytes!'
 
-iv_hex = '000102030405060708090A0B0C0D0E0F'
+iv_hex = '7ceb9c2e8af7d9d4'
 iv_bytes = bytes.fromhex(iv_hex)
 
-plaintext = 'This message is not a multiple of 16 bytes'
-plaintext_bytes = Padding.pad(plaintext.encode(), 16)
+c = 'f38caf2394a4d05e131930553a76913acfbaaa46065ee9f87ceb9c2e8af7d9d4'
+c_bytes = Padding.pad(c.encode(), 16)
 
-cipher = AES.new(key_bytes, AES.MODE_CBC, iv_bytes)
-ciphertext_bytes = cipher.encrypt(plaintext_bytes)
+#cipher = AES.new(key_bytes, AES.MODE_CBC, iv_bytes)
+#ciphertext_bytes = cipher.encrypt(plaintext_bytes)
 
-cipher = AES.new(key_bytes, AES.MODE_CBC, iv_bytes)
-newplaintext_bytes = cipher.decrypt(ciphertext_bytes)
+cipher = AES.new(key, AES.MODE_CBC, iv_bytes)
+newplaintext_bytes = cipher.decrypt(c_bytes)
 
-print(ciphertext_bytes.hex())
+print(c_bytes.hex())
 print(newplaintext_bytes.decode())
